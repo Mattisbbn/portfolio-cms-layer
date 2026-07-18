@@ -19,7 +19,10 @@ export interface CMSPage {
 }
 
 export function useCMSPage(slug: MaybeRefOrGetter<string>) {
-  const { data: page, error, status, refresh } = useFetch<CMSPage>(() => `/api/pages/${toValue(slug)}`)
+  const { data: page, error, status, refresh } = useFetch<CMSPage>(
+    () => `/api/pages/${toValue(slug)}`,
+    { key: `cms-page-${toValue(slug)}` }
+  )
 
   const fields = computed(() => {
     const map: Record<string, any> = {}
