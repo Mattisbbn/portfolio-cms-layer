@@ -34,11 +34,11 @@ export function useCMSPage(slug: MaybeRefOrGetter<string>) {
   })
 
   const getBlockValue = (key: string, defaultValue: any = '') => {
-    return fields.value[key] ?? defaultValue
+    return computed(() => fields.value[key] ?? defaultValue)
   }
 
-  const getBlock = (key: string): CMSBlock | undefined => {
-    return page.value?.blocks?.find(b => b.key === key)
+  const getBlock = (key: string) => {
+    return computed<CMSBlock | undefined>(() => page.value?.blocks?.find(b => b.key === key))
   }
 
   return {
